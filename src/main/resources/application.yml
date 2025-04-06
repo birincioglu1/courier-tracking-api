@@ -1,0 +1,71 @@
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 4
+        queue-capacity: 6
+  application:
+    name: '@project.name@'
+    description: '@project.description@'
+  profiles:
+    active: local
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+      connect-timeout: 2000ms
+      jedis:
+        pool:
+          max-active: 10
+          max-idle: 5
+          max-wait: 2000ms
+          min-idle: 1
+  datasource:
+    url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:db}:5432/courier_tracking?createDatabaseIfNotExist=true
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: HikariCP
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+    generate-ddl: true
+
+
+logging:
+  pattern:
+    console: "{\"time\": \"%d\", \"level\": \"%p\", \"message\": \"%m\"}%n"
+  level:
+    com.zaxxer.hikari: INFO
+    org.springframework.data.redis: DEBUG
+
+server:
+  servlet:
+    context-path: /
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  shutdown: graceful
+
+swagger:
+  api-path: /v1/api-docs
+  cors-enabled: false
+  info:
+    title: Courier Tracking Api
+    description: Courier Tracking Api
+    version: 1.0
+
+app:
+  distanceLimit: 100
+

@@ -1,0 +1,23 @@
+### Save Courier
+POST {{host}}/api/v1/courier
+Content-Type: application/json
+
+{
+  "username": "MarcMarquez"
+}
+
+### PUT Upsert Courier Location
+PUT {{host}}/api/v1/courier/10/location
+Content-Type: application/json
+
+{
+  "geoLocation": {
+    "lat": 40.986106,
+    "lng": 29.1161293
+  },
+  "time": "2024-04-01T14:30:00"
+}
+
+### GET Total Travel Distance
+GET {{host}}/api/v1/courier/2
+Content-Type: application/json
